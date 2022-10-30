@@ -1,22 +1,22 @@
 import { useState } from "react";
 import "./Expenses.css";
 import ExpenseItem from "./ExpenseItem";
-import ExpenseFilter from "../ExpenseFilter/ExpenseFilter"
-
-
+import ExpenseFilter from "../ExpenseFilter/ExpenseFilter";
 
 function Expenses(props) {
+  const [filterYear, setFilterYear] = useState(2022);
 
-  const [ filterYear, setFilterYear ]  = useState(2022)
-
- const dateFilterChnage = (year) => {
+  const dateFilterChnage = (year) => {
     setFilterYear(year);
-    console.log('setting year to ', year)
- }
+    console.log("setting year to ", year);
+  };
 
   return (
-    <> 
-      <ExpenseFilter  filterYear={filterYear} onDateFilterChange={dateFilterChnage} />
+    <>
+      <ExpenseFilter
+        filterYear={filterYear}
+        onDateFilterChange={dateFilterChnage}
+      />
       {props.expenses.map((x) => (
         <ExpenseItem
           id={x.id}
