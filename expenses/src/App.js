@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Expenses from "./components/Expenses/Expenses";
 import NewExpense from "./components/NewExpense/NewExpense";
 
@@ -24,10 +25,22 @@ function App() {
     },
   ];
 
+  const [currentExpenses, setCurrentExpenses] = useState(expenses);
+
+  const newExpenseHandler = (expense) => {
+    const newEx = {
+      ...expense,
+      id: Math.random().toString(),
+      amount: Number(expense.amount),
+    };
+    
+    setCurrentExpenses(prevState => {return [newEx, ...prevState]});
+  };
+
   return (
     <div className="expenses">
-      <NewExpense />
-      <Expenses expenses={expenses} />
+      <NewExpense newExpense={newExpenseHandler} />
+      <Expenses expenses={currentExpenses} />
     </div>
   );
 }
