@@ -1,9 +1,8 @@
 import "./ExpenseFilter.css";
 
 const ExpenseFilter = (props) => {
-
   const handleDateChange = (event) => {
-     props.onDateFilterChange(event.target.value);
+    props.onDateFilterChange(event.target.value);
   };
 
   return (
@@ -15,6 +14,7 @@ const ExpenseFilter = (props) => {
           value={props.filterYear}
           onChange={handleDateChange}
         >
+          <option value="9999">All Years</option>  
           <option value="2019">2019</option>
           <option value="2020">2020</option>
           <option value="2021">2021</option>
