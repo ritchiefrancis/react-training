@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Expenses from "./components/Expenses/Expenses";
 import NewExpense from "./components/NewExpense/NewExpense";
+import ExpenseButton from "./components/ExpenseButton/ExpenseButton";
 
 function App() {
   const expenses = [
@@ -37,9 +38,23 @@ function App() {
     setCurrentExpenses(prevState => {return [newEx, ...prevState]});
   };
 
+
+  const [displayForm, setDisplayForm] = useState(false) 
+
+  const clickHandler = () =>{
+    setDisplayForm (prevState => !prevState)
+  }
+
+
+  const hideFormDisplayHandler =  () => {
+    setDisplayForm (false)
+  }
+
+
   return (
     <div className="expenses">
-      <NewExpense newExpense={newExpenseHandler} />
+       <NewExpense  formHandler={hideFormDisplayHandler} display={displayForm} newExpense={newExpenseHandler} />
+       <ExpenseButton display={!displayForm} onClick={clickHandler}/> 
       <Expenses expenses={currentExpenses} />
     </div>
   );

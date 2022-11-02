@@ -5,25 +5,28 @@ import ExpenseFilter from "../ExpenseFilter/ExpenseFilter";
 
 function Expenses(props) {
   const [filterYear, setFilterYear] = useState(9999);
-  const [items, setItems] = useState(props.expenses);
-
 
   const dateFilterChange = (year) => {
     setFilterYear(year);
-    console.log("setting year to ", year);
 
-    setItems(() => {
-      if (Number(year) === 9999) {
-        return props.expenses;
-      }
+    if (Number(year) === 9999) {
+      return props.expenses;
+    }
 
-      let  x = props.expenses.filter(
-        (x) => Number(year) === x?.date?.getFullYear()
-      );
+    let x = props.expenses.filter(
+      (x) => Number(year) === x?.date?.getFullYear()
+    );
 
-      return x;
-    });
+    return x;
   };
+
+  let val = props.expenses;
+
+  if (Number(filterYear) !== 9999) {
+    val = props.expenses.filter((x) => Number(filterYear) === x?.date?.getFullYear());
+  }
+
+  
 
   return (
     <>
@@ -31,15 +34,19 @@ function Expenses(props) {
         filterYear={filterYear}
         onDateFilterChange={dateFilterChange}
       />
-      {items &&
-        items.map((x) => (
+      {val.length === 0 ? (
+        <p className="expenses-error-message">No results for {filterYear}</p>
+      ) : (
+        val &&
+        val.map((x) => (
           <ExpenseItem
             key={x.id}
             title={x.title}
             amount={x.amount}
             date={x.date}
           />
-        ))}
+        ))
+      )}
     </>
   );
 }

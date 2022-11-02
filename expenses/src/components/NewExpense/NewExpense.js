@@ -3,13 +3,19 @@ import ExpenseForm from "./ExpenseForm"
 
 const NewExpense = (props) => {
 
+    if(props.display){
 
-    return (
-        <div className="new-expense">
-            <ExpenseForm {...props}/>
-        </div>
+        return (
+            <div className="new-expense">
+                <ExpenseForm {...props}/>
+            </div>
+    
+        )
+    }
 
-    )
+    return <>
+    </>
+    
 
 };
 
